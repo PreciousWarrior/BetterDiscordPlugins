@@ -1,4 +1,6 @@
 # NitroStream
+[Download](https://raw.githubusercontent.com/PreciousWarrior/BetterDiscordPlugins/main/NitroStream/NitroStream.plugin.js)
+
 Allows you to stream upto source resolution and 60fps without having Nitro in any form.
 
 ![Quality Stream](https://raw.githubusercontent.com/PreciousWarrior/BetterDiscordPlugins/main/NitroStream/Images/stream.png)
