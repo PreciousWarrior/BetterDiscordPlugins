@@ -16,5 +16,6 @@ All my BetterDiscord plugins
 7. Enable the plugin via `Settings>Bandaged BD>Plugins`, find the plugin and enable it.
 
 
-For any questions/bugs/feature requests, open an issue.
-For any code changes, open a pull request.
+For any questions/bugs/feature requests, [open an issue](https://github.com/PreciousWarrior/BetterDiscordPlugins/issues/new).
+
+For any code changes, create a fork and [open a pull request](https://github.com/PreciousWarrior/BetterDiscordPlugins/compare/development...development).
