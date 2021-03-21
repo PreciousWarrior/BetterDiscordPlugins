@@ -3,8 +3,9 @@ All my BetterDiscord plugins
 
 
 # Listing
-1. [UseWithoutInternet (Unofficial)](https://github.com/PreciousWarrior/BetterDiscordPlugins/tree/main/UseWithoutInternet)
-2. [NitroStream (Unofficial)](https://github.com/PreciousWarrior/BetterDiscordPlugins/tree/main/NitroStream)
+1. [UseWithoutInternet (Unofficial)](https://github.com/PreciousWarrior/BetterDiscordPlugins/tree/main/UseWithoutInternet#readme)
+2. [NitroStream (Unofficial)](https://github.com/PreciousWarrior/BetterDiscordPlugins/tree/main/NitroStream#readme)
+3. [RemoveLinkWarning (Unofficial)](https://github.com/PreciousWarrior/BetterDiscordPlugins/tree/main/RemoveLinkWarning#readme)
 
 # Installation
 1. [Install BetterDiscord](https://github.com/rauenzi/BetterDiscordApp/blob/master/README.md)
