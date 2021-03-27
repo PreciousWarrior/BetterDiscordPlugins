@@ -1,6 +1,6 @@
  /** 
  * @name UseWithoutInternet
- * @version 0.0.1
+ * @version 0.0.2
  * @description Does not start the loading page when internet access is unavailable. You can view cached messages, profiles, etc. on Discord even with no active internet connection.
  * @author IamPrecious
  * @authorId 474898418138087428
@@ -10,7 +10,7 @@
  * @website https://github.com/PreciousWarrior/BetterDiscordPlugins/tree/main/UseWithoutInternet
  */ 
 
-/*@cc_on
+ /*@cc_on
 @if (@_jscript)
 	
 	// Offer to self-install for clueless users that try to run this directly.
@@ -33,67 +33,39 @@
 	WScript.Quit();
 
 @else@*/
-const time = 100 //ms to check for loading screen
 
-var timeout;
-var connected = true;
-
-class UseWithoutInternet {
-
-    load(){}
-
-    start(){
-        if (!global.ZeresPluginLibrary) return window.BdApi.alert("Library Missing",`The library plugin needed for ${this.getName()} is missing.<br /><br /> <a href="https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js" target="_blank">Click here to download the library!</a>`);
-        timeout = setTimeout(KillLoadingPage, 2000) //wait for discord to load up everything
+module.exports = class UseWithoutInternet {
+    load(){
+        if (!global.ZeresPluginLibrary) return window.BdApi.alert("Library Missing",`The library plugin needed for UseWithoutInternet is missing.<br /><br /> <a href="https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js" target="_blank">Click here to download the library!</a>`);
+        ZLibrary.PluginUpdater.checkForUpdate("UseWithoutInternet", "0.0.2", "https://raw.githubusercontent.com/PreciousWarrior/BetterDiscordPlugins/main/UseWithoutInternet/UseWithoutInternet.plugin.js");
     }
+    start(){}
+    stop(){}
+    observer(changes){
 
-    stop(){
-        clearTimeout(timeout)
+        if (changes.addedNodes && changes.addedNodes.length != 0 && changes.addedNodes[0].classList == "container-16j22k fixClipping-3qAKRb da-container da-fixClipping"){
+            //internet is not working fine. Discord has popped up the unremovable no connection barrier.
+            const removeChilds = (parent) =>{
+                while (parent.lastChild){
+                    parent.removeChild(parent.lastChild)
+                }
+            };
+            removeChilds(changes.addedNodes[0])
+            changes.addedNodes[0].classList = "betterdiscord-usewithoutinternet-borked"
 
+            //kills children (master skywalker, there are too many of them!) of the loading page element and removes all classes;
+            //because killing the element itself causes an error when discord
+            //tries to kill it itself when internet connection is regained
+
+            return ZLibrary.Toasts.warning("Internet connection disconnected!")
+
+        }
+
+        if (changes.removedNodes && changes.removedNodes.length != 0 && changes.removedNodes[0].classList == "betterdiscord-usewithoutinternet-borked"){
+            //Internet is now working fine, discord has removed the loading screen from their side.
+            return ZLibrary.Toasts.success("Internet connection is back!");
+        }
+        
     }
 }
 
-
-function KillLoadingPage(){
-
-    var app = document.getElementsByClassName("app-1q1i1E da-app")[0];
-    var noConnectionElement;
-    for (var i = 0; i < app.children.length; i++) {
-        //identifies the correct element via the opacity style (because the classes are removed by this plugin)
-        if (app.children[i].getAttribute("style") == "opacity: 1;"){
-            noConnectionElement = app.children[i]
-        }
-    }
-
-    if (!noConnectionElement){
-        //Internet is working fine.
-        if (!connected){
-            connected = true;
-            return ZLibrary.Toasts.success("Internet Connection restored!")
-        }
-        return timeout = setTimeout(KillLoadingPage, time);
-    }
-    if (noConnectionElement.classList == "container-16j22k fixClipping-3qAKRb da-container da-fixClipping"){
-        //internet is not working fine. Discord has popped up the unremovable no connection barrier.
-
-        const removeChilds = (parent) =>{
-            while (parent.lastChild){
-                parent.removeChild(parent.lastChild)
-            }
-        };
-
-        //kills children (master skywalker, there are too many of them!) of the loading page element and removes all classes;
-        //because killing the element itself causes an error when discord
-        //tries to kill it itself when internet connection is regained.
-    
-        connected = false;
-        removeChilds(noConnectionElement)
-        noConnectionElement.classList = ""
-        ZLibrary.Toasts.warning("Internet connection disconnected.")
-        return  timeout = setTimeout(KillLoadingPage, time)
-
-    }
-    //internet is not working fine, but the plugin has removed the offending loading screen and no action needs to be taken here.
-    return timeout = setTimeout(KillLoadingPage, time)
-
-}
