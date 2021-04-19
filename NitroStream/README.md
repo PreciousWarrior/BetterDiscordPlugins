@@ -1,4 +1,8 @@
 # NitroStream
+
+# Alert
+This plugin allows you to stream at a higher definition than should be possible, and thus Discord might detect and store this information. If they do, it could result in **your account getting banned**. Personally, I do not use this plugin because I find it to be too risky. I would recommend using this on an account you don't care about, or not using it at all. 
+
 [Download](https://raw.githubusercontent.com/PreciousWarrior/BetterDiscordPlugins/main/NitroStream/NitroStream.plugin.js)
 
 Allows you to stream upto source resolution and 60fps without having Nitro in any form.
