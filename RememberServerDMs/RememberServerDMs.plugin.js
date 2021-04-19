@@ -50,7 +50,7 @@ module.exports = class RememberServerDMs {
 
         })
         if (!child) { return; }
-        if (child.classList[0] != "userPopout-3XzG_A") {
+        if (child.classList != BdApi.findModuleByProps("userPopout").userPopout) {
             return;
         }
         let input = child.children[2].children[0].children[0];
