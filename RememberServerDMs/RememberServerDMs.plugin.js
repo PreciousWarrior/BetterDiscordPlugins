@@ -39,6 +39,7 @@ module.exports = class RememberServerDMs {
     start() { }
     stop() { }
 
+
     observer(changes) {
         let child;
         changes.addedNodes.forEach(node => {
@@ -53,14 +54,14 @@ module.exports = class RememberServerDMs {
             return;
         }
         let input = child.children[2].children[0].children[0];
-        let savedText = BdApi.loadData("RememberServerDMs", child.getAttribute("data-user-id"));
+        let savedText = BdApi.loadData("RememberServerDMs", BdApi.getInternalInstance(child).stateNode.dataset.userId);
         if (savedText) {
             input.value = savedText
         }
         if (!input) { return; } //for your own user popout
         input.onchange = function (input) {
             let value = input.srcElement.value;
-            let uid = input.srcElement.parentElement.parentElement.parentElement.getAttribute("data-user-id")
+            let uid = BdApi.getInternalInstance(input.srcElement.parentElement.parentElement.parentElement).stateNode.dataset.userId;
             BdApi.saveData("RememberServerDMs", uid, value);
         }
     }
