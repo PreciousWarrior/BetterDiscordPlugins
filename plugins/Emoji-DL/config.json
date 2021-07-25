@@ -1,0 +1,12 @@
+{
+  "info": {
+    "name": "Emoji-DL",
+    "authors": [],
+    "version": "0.0.1",
+    "description": "A plugin to download all emojis from a server into a ZIP file"
+  },
+  "changelog": [
+    { "title": "Created Plugin", "items": ["Created this plugin!"] }
+  ],
+  "main": "index.js"
+}
