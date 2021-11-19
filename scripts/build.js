@@ -86,6 +86,7 @@ for (let f = 0; f < list.length; f++) {
     continue;
   }
   const config = require(configPath);
+  if (!config.info.authors) config.info.authors = [];
   config.info.authors.unshift({
     name: "IamPrecious",
     discord_id: "474898418138087428",
@@ -93,9 +94,9 @@ for (let f = 0; f < list.length; f++) {
   });
   const files = fs
     .readdirSync(path.join(pluginsPath, pluginName))
-    .filter((f) => f != "config.json" && f != config.main);
+    .filter((f) => f != "config.json" && f != "index.js");
   const content = embedFiles(
-    require(path.join(pluginsPath, pluginName, config.main)).toString(),
+    require(path.join(pluginsPath, pluginName, "index.js")).toString(),
     pluginName,
     files
   );
